@@ -34,7 +34,7 @@ logger.addHandler(stream_handler)
 # Firestore client initialization
 logger.info("Initializing Firestore client")
 try:
-    db = firestore.Client(project='genial-broker-418611', database='eventure')
+    db = firestore.Client()
     logger.info("Firestore client initialized successfully")
 except Exception as e:
     logger.error(f"Failed to initialize Firestore client: {e}")
@@ -53,7 +53,7 @@ def download_model_from_gcs(bucket_name, source_blob_name, destination_file_name
     logger.info(f'Model downloaded from GCS bucket {bucket_name}, blob {source_blob_name} to {destination_file_name}')
 
 # Download and load the model at startup
-bucket_name = 'eventure-bucket-gcs'
+bucket_name = 'eventure-bucket-2024'
 model_blob_name = 'models/models_lat_long_city.h5'
 local_model_path = 'models/models_lat_long_city.h5'
 
