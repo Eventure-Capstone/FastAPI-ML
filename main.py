@@ -192,11 +192,12 @@ async def recommend_events(request: RecommendRequest):
                 if len(recommended_events) < max_events:
                     recommended_events.append({
                         'Title': event['Title'],
+                        'Id': event['Id'],
                         'Category': event['Category'],
                         'Event_Start': event['Event_Start'],
                         'Location_City': event['Location_City'],
-                        'Location_Address': event['Location_Address']
-                        'Longitude': event['Longitude']
+                        'Location_Address': event['Location_Address'],
+                        'Longitude': event['Longitude'],
                         'Latitude': event['Latitude']
                     })
                     seen_titles.add(event['Title'])
@@ -207,12 +208,13 @@ async def recommend_events(request: RecommendRequest):
                 if len(recommended_events) < max_events:
                     recommended_events.append({
                         'Title': event['Title'],
+                        'Id': event['Id'],
                         'Category': event['Category'],
                         'Event_Start': event['Event_Start'],
                         'Location_City': event['Location_City'],
-                        'Location_Address': event['Location_Address']
-                        'Longitude': event['Longitude']
-                        'Latitude': event['Latitude']
+                        'Location_Address': event['Location_Address'],
+                        'Longitude': event['Longitude'],
+                        'Latitude': event['Latitude'],
                     })
                     seen_titles.add(event['Title'])
 
@@ -222,11 +224,12 @@ async def recommend_events(request: RecommendRequest):
             if event['Category'] not in input_categories and event['Title'] not in seen_titles:
                 additional_events.append({
                     'Title': event['Title'],
+                    'Id': event['Id'],
                     'Category': event['Category'],
                     'Event_Start': event['Event_Start'],
                     'Location_City': event['Location_City'],
-                    'Location_Address': event['Location_Address']
-                    'Longitude': event['Longitude']
+                    'Location_Address': event['Location_Address'],
+                    'Longitude': event['Longitude'],
                     'Latitude': event['Latitude']
                 })
                 seen_titles.add(event['Title'])
