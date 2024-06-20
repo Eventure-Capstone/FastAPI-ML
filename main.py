@@ -196,6 +196,8 @@ async def recommend_events(request: RecommendRequest):
                         'Event_Start': event['Event_Start'],
                         'Location_City': event['Location_City'],
                         'Location_Address': event['Location_Address']
+                        'Longitude': event['Longitude']
+                        'Latitude': event['Latitude']
                     })
                     seen_titles.add(event['Title'])
 
@@ -209,6 +211,8 @@ async def recommend_events(request: RecommendRequest):
                         'Event_Start': event['Event_Start'],
                         'Location_City': event['Location_City'],
                         'Location_Address': event['Location_Address']
+                        'Longitude': event['Longitude']
+                        'Latitude': event['Latitude']
                     })
                     seen_titles.add(event['Title'])
 
@@ -222,6 +226,8 @@ async def recommend_events(request: RecommendRequest):
                     'Event_Start': event['Event_Start'],
                     'Location_City': event['Location_City'],
                     'Location_Address': event['Location_Address']
+                    'Longitude': event['Longitude']
+                    'Latitude': event['Latitude']
                 })
                 seen_titles.add(event['Title'])
             if len(additional_events) >= 5:
@@ -289,45 +295,6 @@ async def get_cities():
             "data": []
         }
 
-@app.get("/categories")
-async def get_categories():
-    logger.info("Received request for /categories endpoint")
-    try:
-        if 'categories' in categories_cache:
-            logger.info("Returning cached categories data")
-            return {
-                "success": True,
-                "message": "List of categories fetched successfully",
-                "data": categories_cache['categories']
-            }
-
-        # Fetch data from Firestore
-        logger.info("Fetching events from Firestore")
-        events_ref = db.collection('events')
-        events_docs = events_ref.stream()
-        categories = set()
-        
-        for doc in events_docs:
-            event_data = doc.to_dict()
-            logger.info(f"Fetched document: {event_data}")
-            if 'Category' in event_data:
-                categories.add(event_data['Category'])
-
-        categories_list = list(categories)
-        categories_cache['categories'] = categories_list  # Cache the data
-
-        return {
-            "success": True,
-            "message": "List of categories fetched successfully",
-            "data": categories_list
-        }
-    except Exception as e:
-        logger.error(f'Error fetching categories: {e}')
-        return {
-            "success": False,
-            "message": str(e),
-            "data": []
-        }
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))
